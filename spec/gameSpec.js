@@ -14,6 +14,32 @@ describe("Playing The Game", function() {
       expect(game.strikeDebt).toEqual(2);
       expect(game.bonuses).toEqual([10, 10]);
     });
+    it("adds the cumalitive score of three strikes", function() {
+      game.throwBall(10);
+      game.throwBall(10);
+      game.throwBall(10);
+      expect(game.score).toEqual(30);
+      expect(game.bonuses).toEqual([10, 10]);
+    });
+    it("adds the cumalitive score of two strikes and the next roll", function() {
+      game.throwBall(10);
+      game.throwBall(10);
+      game.throwBall(8);
+      expect(game.score).toEqual(28);
+      expect(game.bonuses).toEqual([10, 8]);
+    });
   });
+
+  describe("SCORING A SPARE", function() {
+    beforeEach(function() {
+      game = new Game();
+    });
+    it("calls the spare checker if a spare is called", function() {
+      game.throwBall(5);
+      game.throwBall(5);
+      expect(game.spareChecker).toEqual(true);
+
+    })
+  })
 
 });

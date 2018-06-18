@@ -16,7 +16,7 @@ Frame.prototype.isAStrike = function() {
 }
 
 Frame.prototype.isASpare = function() {
-  return (this.bowls.reduce((a, b) => a + b)) === 10;
+  return !(this.isAStrike())  && this.bowls.reduce((a, b) => a + b) === 10;
 }
 
 Frame.prototype.checkRegularframe = function() {
