@@ -20,10 +20,25 @@ describe("Frame", function() {
     it("returns true if the frame is complete", function() {
       completeFrame.addBowl(6);
       completeFrame.addBowl(3);
-     expect(completeFrame.isComplete(6)).toEqual(true);
+      expect(completeFrame.isComplete(6)).toEqual(true);
     });
+  });
 
-
+  describe("Strikes and spares", function() {
+    beforeEach(function() {
+      strikeFrame = new Frame();
+      spareFrame = new Frame();
+      regularFrame = new Frame();
+    });
+    it("calls true in the event of a strike", function() {
+      strikeFrame.addBowl(10);
+      expect(strikeFrame.isAStrike()).toEqual(true);
+    });
+    it("calls true in the event of a spare", function() {
+      spareFrame.addBowl(5);
+      spareFrame.addBowl(5);
+      expect(spareFrame.isASpare()).toEqual(true);
+    });
   });
 
 });
