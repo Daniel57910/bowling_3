@@ -24,17 +24,20 @@ Frame.prototype.checkRegularframe = function() {
 }
 
 Frame.prototype.checkFinalFrame = function() {
+
    if (this.bowls.length === 3) {
      return true
    };
-   if (this.isAStrike()) {
+   if (this.isAStrike() || this.isASpare()) {
      return false
    };
-   if (this.isASpare()) {
-     return false
-   };
+
    if (this.bowls.length === 2) {
      return true
    };
+}
+
+Frame.prototype.reset = function() {
+  this.bowls = [];
 }
 
