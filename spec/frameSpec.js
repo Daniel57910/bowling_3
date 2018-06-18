@@ -9,7 +9,7 @@ describe("Frame", function() {
       expect(testFrame.bowls).toEqual([]);
       expect(testFrame.isComplete(0)).toEqual(false);
     });
-    it("returns complete for a strike that's not the final frame", function() {
+    it("returns true for a strike that's not the final frame", function() {
       completeFrame.addBowl(10);
       expect(completeFrame.isComplete(3)).toEqual(true);
     });
@@ -38,6 +38,32 @@ describe("Frame", function() {
       spareFrame.addBowl(5);
       spareFrame.addBowl(5);
       expect(spareFrame.isASpare()).toEqual(true);
+    });
+  });
+
+  describe("the final throw of the game", function() {
+    beforeEach(function() {
+      finalFrame = new Frame();
+    });
+    it("returns false if the final frame is a strike", function() {
+      finalFrame.addBowl(10);
+      expect(finalFrame.isComplete(9)).toEqual(false);
+    });
+    it("returns false if the final frame is a spare", function() {
+      finalFrame.addBowl(5);
+      finalFrame.addBowl(5);
+      expect(finalFrame.isComplete(9)).toEqual(false);
+    })
+    it("returns true if it's a regular bowl", function() {
+      finalFrame.addBowl(5);
+      finalFrame.addBowl(4);
+      expect(finalFrame.isComplete(9)).toEqual(true);
+    })
+    it("returns true if bonus rolls calculated", function() {
+      finalFrame.addBowl(10);
+      finalFrame.addBowl(10);
+      finalFrame.addBowl(10);
+      expect(finalFrame.isComplete(9)).toEqual(true);
     });
   });
 
