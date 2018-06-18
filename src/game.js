@@ -33,7 +33,7 @@ Game.prototype.throwBall = function (pinsKnocked) {
 } 
 
 Game.prototype.checkBonus = function() {
-  if (this.frame.isAStrike() && this.frame.isComplete(this.allFrames.length)) {
+  if (this.frame.isAStrike() || this.frame.isComplete(this.allFrames.length)) {
     this.strikeDebt += 2;
   }
 
@@ -43,6 +43,12 @@ Game.prototype.checkBonus = function() {
 }
 
 Game.prototype.addStrikeBonus = function(pinsKnocked) {
+
+  if (this.allFrames.length === 9) {
+    if (pinsKnocked === 10) {
+      this.strikeDebt += 2;
+    }
+  }
   if (this.strikeDebt > 0) {
     this.incrementStrikeArray(pinsKnocked);
     this.strikeDebt -= 1;
@@ -81,7 +87,28 @@ Game.prototype.resetBonuses = function() {
 
 
 game = new Game()
+
 game.throwBall(10)
+
 game.throwBall(10)
+
 game.throwBall(10)
+
 game.throwBall(7)
+game.throwBall(2)
+
+game.throwBall(6)
+game.throwBall(3)
+
+game.throwBall(10)
+
+game.throwBall(10)
+
+game.throwBall(10)
+
+game.throwBall(5)
+game.throwBall(3)
+
+game.throwBall(10)
+game.throwBall(10)
+game.throwBall(10)

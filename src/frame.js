@@ -24,7 +24,7 @@ Frame.prototype.checkRegularframe = function() {
 }
 
 Frame.prototype.checkFinalFrame = function() {
-
+   console.log("final frame");
    if (this.bowls.length === 3) {
      return true
    };
