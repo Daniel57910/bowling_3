@@ -9,9 +9,14 @@ function Game () {
 }
 
 Game.prototype.throwBall = function (pinsKnocked) {
+
+  if (this.allFrames.length === 10) {
+    throw "GAME IS COMPLETE";
+  }
+
   this.frame.addBowl(pinsKnocked);
 
-  if (this.spareChecker) {
+  if (this.spareChecker && this.allFrames.length < 9) {
     this.score += 10 + pinsKnocked;
     this.allScores.push(this.score);
     this.spareChecker = false;
@@ -22,9 +27,18 @@ Game.prototype.throwBall = function (pinsKnocked) {
   this.addStrikeDebt();
   
   if (this.frame.isComplete(this.allFrames.length)) {
+    console.log(this.score);
+    console.log(this.allScores);
     this.allFrames.push(this.frame.bowls);
+    if (this.allFrames.length === 10) {
+      this.spareChecker = false;
+      this.strikeDebt = 0;
+    }
     if (this.spareChecker === false && this.strikeDebt === 0) {
-      this.score += this.frame.bowls[0] + this.frame.bowls[1];
+      console.log(game.frame.bowls);
+      console.log("FRAME LENGTH");
+      console.log(this.frame.bowls)
+      this.score += this.getTheScore(this.frame.bowls);
       this.allScores.push(this.score);
     }
     this.frame.reset();
@@ -60,7 +74,7 @@ Game.prototype.incrementStrikeArray = function(pinsKnocked) {
 }
 
 Game.prototype.addStrikeDebt = function() {
-  if (this.bonuses.length === 3) {
+  if (this.bonuses.length === 3 && this.allScores.length != 9) {
     this.score += this.getTheScore(this.bonuses);
     this.allScores.push(this.score);
     this.bonuses.shift();
@@ -84,31 +98,3 @@ Game.prototype.resetBonuses = function() {
   this.bonuses = [];
   this.strikeDebt = 0;
 }
-
-
-game = new Game()
-
-game.throwBall(10)
-
-game.throwBall(10)
-
-game.throwBall(10)
-
-game.throwBall(7)
-game.throwBall(2)
-
-game.throwBall(6)
-game.throwBall(3)
-
-game.throwBall(10)
-
-game.throwBall(10)
-
-game.throwBall(10)
-
-game.throwBall(5)
-game.throwBall(3)
-
-game.throwBall(10)
-game.throwBall(10)
-game.throwBall(10)

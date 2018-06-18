@@ -38,8 +38,9 @@ describe("Playing The Game", function() {
       game.throwBall(5);
       game.throwBall(5);
       expect(game.spareChecker).toEqual(true);
-
-    })
+      game.throwBall(3);
+      expect(game.score).toEqual(13);
+    });
   })
 
 });
